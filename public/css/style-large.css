@@ -1,0 +1,10 @@
+@media only screen and (min-width: 40em)  {
+    .more-info {
+        flex-direction: row;
+      }
+    
+    h1 {
+        font-size: 2rem;
+    }
+
+}

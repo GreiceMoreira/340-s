@@ -1,0 +1,159 @@
+/******* Change Box Model ***************/
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+:root {
+  --background: url(../images/site/checkerboard.jpg);
+  --dark: #000000;
+  --blue: #006A9B; 
+  --dark-grey: #1A1A1A;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto Flex", Arial, sans-serif;
+}
+
+html{
+  background: var(--background);
+}
+
+
+body {
+  background-color: white;
+  font-size: 16px;
+  overflow-x: hidden;
+  margin: 1rem 3rem;
+  border: 3px solid var(--blue);
+  border-radius: 8px;
+
+}
+
+header {
+  background-color: white;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  justify-content: space-between;
+  margin: 1rem 0;
+}
+
+header a {
+  text-decoration: none;
+  color: var(--dark);
+}
+
+.siteName {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+
+.navigation {
+  background-color:var(--dark);
+  display: flex;
+  font-size: 1rem;
+  text-decoration: none;
+  padding: .5rem .75rem;
+  color:white ;
+  justify-content: space-around;
+  margin: 0.5rem;
+
+}
+
+li {
+  list-style-type: none;
+}
+
+
+h1 {
+  padding: 8px;
+  font-size: 1.5rem;
+}
+
+.hero-area {
+  background-image: url(../images/vehicles/delorean.jpg);
+  background-size: auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  min-height: 50vh;
+  padding: 10px;
+}
+
+.hero-area section {
+  display: block;
+  max-width: 250px;
+  background: rgba(255, 255, 255, 0.5) ;
+  color: var(--blue);
+  margin: 50px;
+  padding: 20px;
+
+}
+
+.hero-area h2 {
+  margin-bottom: 5px;
+}
+
+.cta {
+  background-color: var(--blue);
+  color: var(--dark-grey);
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 1rem 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.more-info {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column-reverse;
+  flex-wrap: nowrap;
+  width: 100%; 
+}
+.more-info section {
+  flex: 1;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.grid-up {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+h3 {
+  padding: 8px 8px 8px 0;
+  margin: 8px 8px 8px 0;
+}
+
+.upgrades {
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3px;
+}
+
+.upgrades img{
+  background-color: var(--blue);
+  padding: 16px 32px;
+
+}
+
+.reviews li{
+  margin-bottom: 1rem;
+  list-style-type: disc;
+}
+
+footer {
+  padding: 8px;
+}
