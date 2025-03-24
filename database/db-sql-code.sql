@@ -56,3 +56,13 @@ INSERT INTO public.classification (classification_name) VALUES ('Custom'),
 ('Truck'),
 ('Sedan');
 
+-- 4 --
+UPDATE public.inventory
+	SET inv_description = 'Do you have 6 kids and like to go offroading? The Hummer gives you the a huge interior with an engine to get you out of any muddy or rocky situation.'
+	WHERE inv_make = 'GM' AND inv_model = 'Hummer';
+
+
+-- 6 --
+UPDATE public.inventory
+SET inv_image = regexp_replace(inv_image, '(^/images)(/)', '\1/vehicles\2'),
+    inv_thumbnail = regexp_replace(inv_thumbnail, '(^/images)(/)', '\1/vehicles\2');
