@@ -2,7 +2,7 @@ CREATE TYPE public.account_type AS ENUM
     ('Client', 'Employee', 'Admin');
 
 ALTER TYPE public.account_type
-    OWNER TO my340;
+    OWNER TO cse340;
 
 --Table structure for table `classification`
 CREATE TABLE public.classification (
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS public.inventory
 
 -- Create relationship between `classification`and ìnventory`tables
 ALTER TABLE IF EXISTS public.inventory
-	ADD CONSTRAINT fk_classification FOREING KEY (classification_id)
+	ADD CONSTRAINT fk_classification FOREIGN KEY (classification_id)
 	REFERENCES public.classification (classification_id)
 	ON UPDATE CASCADE
 	ON DELETE NO ACTION;
