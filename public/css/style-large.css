@@ -7,6 +7,9 @@
         font-size: 2rem;
     }
 
+    .navigation a {
+        font-size: 2rem;
+    }
     #inv-display {
         flex-direction: row;
     }
@@ -17,7 +20,7 @@
     }
 
     .card-details img {
-        width: 300px;
+        width: 650px;
         height: auto;
     }
 
@@ -25,5 +28,9 @@
         padding: 3rem;
         justify-content: space-between;
     }
-    
+
+    .error-message {
+        text-align: start;
+    }
+
 }

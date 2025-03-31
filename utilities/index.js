@@ -63,7 +63,7 @@ Util.buildClassificationGrid = async function(data){
 * Build the details view HTML
 * ************************************ */
 Util.buildDetailsView = async function(vehicle){
-  let detailsView
+  let detailsView = ""
   
   if (vehicle) {
     detailsView += '<div id="det-display">';
@@ -90,18 +90,14 @@ Util.buildDetailsView = async function(vehicle){
     detailsView += '</a>';
     detailsView += '</h2>';
     
-    // Price
-    detailsView += '<span>$' + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</span>';
-    detailsView += '</div>';
+  // Vehicle Details in a List
+    detailsView += '<ul class="vehicle-details">';
+    detailsView += '<li><b>Price: </b>$' + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</li>';
+    detailsView += '<li><b>Description: </b>' + vehicle.inv_description + '</li>';
+    detailsView += '<li><b>Color: </b>' + vehicle.inv_color + '</li>';
+    detailsView += '<li><b>Miles: </b>' + vehicle.inv_miles + '</li>';
+    detailsView += '</ul>';
 
-    // Description
-    detailsView += '<p class="description"> <b>Description: </b>' + vehicle.inv_description + '</p>';
-
-    //Color
-    detailsView += '<p class=color> <b>Color: </b>' + vehicle.inv_color + '</p>'
-
-    //Miles
-    detailsView += '<p><b>Miles: </b>' + vehicle.inv_miles +' </p>'
     detailsView += '</section>' //Close section details 
 
     detailsView += '</div>' //Close .card-details

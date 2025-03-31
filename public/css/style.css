@@ -75,6 +75,7 @@ li {
 .navigation a {
   text-decoration: none;
   color: white;
+  font-size: 1rem;
 }
 
 .navigation a:hover {
@@ -217,6 +218,7 @@ h3 {
 
 footer {
   padding: 8px;
+  font-size: 1.2rem;
 }
 
 
@@ -231,9 +233,57 @@ footer {
   flex-direction: column;
   padding: 20px;
   justify-content: space-between;
+  font-size: 2rem;
+}
+
+
+.card-details a {
+  font-size: 2.3rem;
 }
 
 .more p {
   margin: .5rem 0;
 }
 
+/* Error message */
+
+.error-message {
+  font-size: 3rem;
+  background-image: url("../images/site/error.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: space-evenly;
+  text-align: center;
+  flex-direction: column;
+  padding: 20px;
+  min-height: 800px;
+  width: auto;
+}
+
+.error-message p {
+  color: var(--grey);
+  font-weight: bold;
+  padding: 20px;
+  text-shadow: 1px 1px 0 #000, 2px 2px 0 #555, 3px 3px 5px rgba(0, 0, 0, 0.5);
+}
+
+.error-message a {
+  text-decoration: underline;
+  color: var(--grey);
+}
+
+.error-message h1 {
+  font-size: 3.5rem;
+  color: #F9F9F9;
+}
+
+
+.vehicle-details li:nth-child(odd) {
+  background-color: var(--grey);
+}
+
+.vehicle-details li {
+  padding: 10px;
+}
