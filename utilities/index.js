@@ -58,6 +58,55 @@ Util.buildClassificationGrid = async function(data){
   return grid
 }
 
+
+/* **************************************
+* Build the details view HTML
+* ************************************ */
+Util.buildDetailsView = async function(vehicle){
+  let detailsView
+  
+  
+  if (vehicle) {
+    detailsView += '<div id="det-display">';
+    
+    // Vehicle title
+    detailsView += '<h1>' + vehicle.inv_year + ' ' + vehicle.inv_make + ' ' + vehicle.inv_model + '</h1>';
+
+    // Vehicle image with link
+    detailsView += '<a href="../../inv/detail/' + vehicle.inv_id + '" title="View ' + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">';
+    detailsView += '<img src="' + vehicle.inv_thumbnail + '" alt="Image of ' + vehicle.inv_make + ' ' + vehicle.inv_model + ' on CSE Motors" />';
+    detailsView += '</a>';
+
+    // Price and model name
+    detailsView += '<div class="namePrice">';
+    detailsView += '<hr />';
+    detailsView += '<h2>';
+    detailsView += '<a href="../../inv/detail/' + vehicle.inv_id + '" title="View ' + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">';
+    detailsView += vehicle.inv_make + ' ' + vehicle.inv_model;
+    detailsView += '</a>';
+    detailsView += '</h2>';
+    
+    // Price
+    detailsView += '<span>$' + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</span>';
+    detailsView += '</div>';
+
+    // Description
+    detailsView += '<p class="description"> Description: ' + vehicle.inv_description + '</p>';
+
+    //Color
+    detailsView += '<p class=color> Color:' + vehicle.inv_color + '</p>'
+
+    //Miles
+    detailsView += '<p>Miles:' + vehicle.inv_miles +' </p>'
+
+    detailsView += '</div>'; // Close #det-display
+  } else { 
+    detailsView += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
+  }
+  return detailsView
+}
+
+
 /* *****************
 * Middleware For Handling Errors
 * Wrap other function in this for 

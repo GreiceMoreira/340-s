@@ -44,7 +44,7 @@ app.get("/", utilities.handleErrors(baseController.buildHome))
 app.use("/inv", inventoryRoute)
 //File Not Found Route - must be last rout in list
 app.use(async (req,res,next) => {
-  next({status: 4040, message: 'Looks like you have ventured into the dark side! This page does not exist.'})
+  next({status: 404, message: 'Looks like you have ventured into the dark side! This page does not exist.'})
 })
 
 /* ***********************
