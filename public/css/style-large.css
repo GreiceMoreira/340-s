@@ -11,4 +11,19 @@
         flex-direction: row;
     }
 
+    .card-details {
+        justify-content: space-around;
+        flex-direction: row;
+    }
+
+    .card-details img {
+        width: 300px;
+        height: auto;
+    }
+
+    .more {
+        padding: 3rem;
+        justify-content: space-between;
+    }
+    
 }

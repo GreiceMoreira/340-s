@@ -65,17 +65,21 @@ Util.buildClassificationGrid = async function(data){
 Util.buildDetailsView = async function(vehicle){
   let detailsView
   
-  
   if (vehicle) {
     detailsView += '<div id="det-display">';
     
     // Vehicle title
     detailsView += '<h1>' + vehicle.inv_year + ' ' + vehicle.inv_make + ' ' + vehicle.inv_model + '</h1>';
-
+    
+    detailsView += '<div class="card-details">' //Card .card-details
     // Vehicle image with link
+    detailsView += '<section class="vehicleDetailsImg>' //Open section vehicle details image
     detailsView += '<a href="../../inv/detail/' + vehicle.inv_id + '" title="View ' + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">';
     detailsView += '<img src="' + vehicle.inv_thumbnail + '" alt="Image of ' + vehicle.inv_make + ' ' + vehicle.inv_model + ' on CSE Motors" />';
     detailsView += '</a>';
+    detailsView += '</section>' //Close section vehicle details image
+
+    detailsView += '<section class="more">' //Open section details 
 
     // Price and model name
     detailsView += '<div class="namePrice">';
@@ -91,14 +95,16 @@ Util.buildDetailsView = async function(vehicle){
     detailsView += '</div>';
 
     // Description
-    detailsView += '<p class="description"> Description: ' + vehicle.inv_description + '</p>';
+    detailsView += '<p class="description"> <b>Description: </b>' + vehicle.inv_description + '</p>';
 
     //Color
-    detailsView += '<p class=color> Color:' + vehicle.inv_color + '</p>'
+    detailsView += '<p class=color> <b>Color: </b>' + vehicle.inv_color + '</p>'
 
     //Miles
-    detailsView += '<p>Miles:' + vehicle.inv_miles +' </p>'
+    detailsView += '<p><b>Miles: </b>' + vehicle.inv_miles +' </p>'
+    detailsView += '</section>' //Close section details 
 
+    detailsView += '</div>' //Close .card-details
     detailsView += '</div>'; // Close #det-display
   } else { 
     detailsView += '<p class="notice">Sorry, no matching vehicles could be found.</p>'

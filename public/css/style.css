@@ -177,7 +177,8 @@ h3 {
   margin-top: 1rem;
 }
 
-#inv-display a {
+#inv-display a , 
+#det-display a {
   color: var(--dark-grey);
   text-decoration: none;
 }
@@ -217,3 +218,22 @@ h3 {
 footer {
   padding: 8px;
 }
+
+
+/* Details View */
+
+#det-display {
+  margin: .5rem;
+}
+
+.card-details {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  justify-content: space-between;
+}
+
+.more p {
+  margin: .5rem 0;
+}
+
