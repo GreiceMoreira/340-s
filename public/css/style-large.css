@@ -17,6 +17,7 @@
     .card-details {
         justify-content: space-around;
         flex-direction: row;
+        font-size: 2rem;
     }
 
     .card-details img {
@@ -32,5 +33,9 @@
     .error-message {
         text-align: start;
     }
+
+    .grid-up {
+        grid-template-columns: repeat(2, 1fr);
+      }
 
 }

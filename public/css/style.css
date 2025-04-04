@@ -59,12 +59,14 @@ header a {
 .navigation {
   background-color:var(--dark);
   display: flex;
+  flex-wrap: wrap;
   font-size: 1rem;
   text-decoration: none;
   padding: .5rem .75rem;
   color:white ;
   justify-content: space-around;
   margin: 0.5rem;
+  gap:2px;
 
 }
 
@@ -137,7 +139,7 @@ h1 {
 
 .grid-up {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   gap: 10px;
 }
 
@@ -233,7 +235,7 @@ footer {
   flex-direction: column;
   padding: 20px;
   justify-content: space-between;
-  font-size: 2rem;
+  font-size: clamp(16px, 2vw, 20px);
 }
 
 

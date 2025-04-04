@@ -95,7 +95,7 @@ Util.buildDetailsView = async function(vehicle){
     detailsView += '<li><b>Price: </b>$' + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</li>';
     detailsView += '<li><b>Description: </b>' + vehicle.inv_description + '</li>';
     detailsView += '<li><b>Color: </b>' + vehicle.inv_color + '</li>';
-    detailsView += '<li><b>Miles: </b>' + vehicle.inv_miles + '</li>';
+    detailsView += '<li><b>Miles: </b>' + new Intl.NumberFormat('en-US').format(vehicle.inv_miles) + '</li>';
     detailsView += '</ul>';
 
     detailsView += '</section>' //Close section details 
