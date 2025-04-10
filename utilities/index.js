@@ -7,7 +7,7 @@ const Util = {}
 Util.getNav = async function (req, res, next) {
   let data = await invModel.getClassifications()
   let list = "<ul class='navigation' >"
-  console.log(data)
+  //console.log(data)
   list += '<li><a href="/" title="Home page">Home</a></li>'
   data.rows.forEach((row) => {
     list += "<li>"
@@ -71,15 +71,15 @@ Util.buildDetailsView = async function(vehicle){
     // Vehicle title
     detailsView += '<h1>' + vehicle.inv_year + ' ' + vehicle.inv_make + ' ' + vehicle.inv_model + '</h1>';
     
-    detailsView += '<div class="card-details">' //Card .card-details
+    detailsView += '<div class="card-details">'; //Card .card-details
     // Vehicle image with link
-    detailsView += '<section class="vehicleDetailsImg>' //Open section vehicle details image
+    detailsView += '<section class="vehicleDetailsImg>'; //Open section vehicle details image
     detailsView += '<a href="../../inv/detail/' + vehicle.inv_id + '" title="View ' + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">';
     detailsView += '<img src="' + vehicle.inv_thumbnail + '" alt="Image of ' + vehicle.inv_make + ' ' + vehicle.inv_model + ' on CSE Motors" />';
     detailsView += '</a>';
-    detailsView += '</section>' //Close section vehicle details image
+    detailsView += '</section>'; //Close section vehicle details image
 
-    detailsView += '<section class="more">' //Open section details 
+    detailsView += '<section class="more">'; //Open section details 
 
     // Price and model name
     detailsView += '<div class="namePrice">';
@@ -98,12 +98,12 @@ Util.buildDetailsView = async function(vehicle){
     detailsView += '<li><b>Miles: </b>' + new Intl.NumberFormat('en-US').format(vehicle.inv_miles) + '</li>';
     detailsView += '</ul>';
 
-    detailsView += '</section>' //Close section details 
+    detailsView += '</section>'; //Close section details 
 
-    detailsView += '</div>' //Close .card-details
+    detailsView += '</div>'; //Close .card-details
     detailsView += '</div>'; // Close #det-display
   } else { 
-    detailsView += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
+    detailsView += '<p class="notice">Sorry, no matching vehicles could be found.</p>';
   }
   return detailsView
 }

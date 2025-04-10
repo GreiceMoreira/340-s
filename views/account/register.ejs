@@ -1,0 +1,44 @@
+<% if (title) { %>
+    <h1><%= title %></h1>
+<% } else { res.redirect('/')} %>
+
+<%- messages() %>
+
+<% if(errors) { %>
+    <ul class="notice">
+        <% errors.array().forEach(error => { %>
+        <li><%= error.msg %></li>
+        <%   }) %>
+    </ul>
+<% } %> 
+
+<form action="/account/register" method="post" novalidate>
+
+    <!-- First Name  -->
+    <label for="account_firstname">First Name: </label>
+    <input type="text" id="account_firstname" name="account_firstname" required title="Enter your first name"
+    autocomplete="given-name" placeholder="Enter">
+    
+    <!-- Last Name  -->
+    <label for="account_lastname">Last Name: </label>
+    <input type="text" id="account_lastname" name="account_lastname" required title="Enter your last name"
+    autocomplete="family-name" placeholder="Enter">
+    
+
+    <!-- Email  -->
+    <label for="account_email">E-mail: </label>
+    <input type="email" id="account_email" name="account_email" required title="Enter your email."
+    autocomplete="email" placeholder="example@email.com">
+
+    <!-- Password  -->
+    <label for="account_password">Password: </label>
+    <input type="password" id="account_password" name="account_password" required title="Enter your password."
+    pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+    <p class="requiredPassword">You password must be: <br>12 characters in length, minimum</br>
+        <br>contain at least 1 capital letter,</br>
+        <br>contain at least 1 number,</br>
+        <br>contain at least 1 special character.</br></p>
+
+    <button id="registerSubmit" type="submit">Register</button>
+
+</form>
