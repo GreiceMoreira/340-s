@@ -314,6 +314,7 @@ form label{
 form input {
   padding: 1rem;
   margin: .5rem;
+  border-radius: .5rem;
 }
 
 form input {
@@ -381,10 +382,10 @@ form input:focus {
 }
 
 input:required:invalid, input:focus:invalid {
-  /* insert your own styles for invalid form input */
+  border-bottom: 3px solid rgb(255, 0, 0, 0.66);
  }
 
  input:required:valid {
-  /* insert your own styles for valid form input */
+  border-bottom: 3px solid rgba(0, 128, 0, 0.66);
  }
  
