@@ -7,6 +7,7 @@ const Util = {}
 Util.getNav = async function (req, res, next) {
   let data = await invModel.getClassifications()
   let list = "<ul class='navigation' >"
+
   //console.log(data)
   list += '<li><a href="/" title="Home page">Home</a></li>'
   data.rows.forEach((row) => {
@@ -58,7 +59,6 @@ Util.buildClassificationGrid = async function(data){
   return grid
 }
 
-
 /* **************************************
 * Build the details view HTML
 * ************************************ */
@@ -107,7 +107,6 @@ Util.buildDetailsView = async function(vehicle){
   }
   return detailsView
 }
-
 
 /* *****************
 * Middleware For Handling Errors

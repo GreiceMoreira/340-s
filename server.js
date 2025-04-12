@@ -15,7 +15,7 @@ const errorRoute = require("./routes/500error");
 const session = require("express-session");
 const pool = require('./database/');
 const accountRoute = require("./routes/accountRoute");
-const bodyParser = require("body-parser") // not necessary
+// const bodyParser = require("body-parser") // not necessary
 
 const app = express();
 const static = require("./routes/static");
@@ -67,6 +67,7 @@ app.use(express.urlencoded({ extended: true })); // for parsing application/x-ww
  * Routes
  *************************/
 app.use(static)
+
 // Index route
 //app.get("/", baseController.buildHome)
 app.get("/", utilities.handleErrors(baseController.buildHome))

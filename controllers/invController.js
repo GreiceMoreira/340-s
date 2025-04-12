@@ -1,10 +1,10 @@
+const { validationResult } = require("express-validator");
 const invModel = require("../models/inventory-model")
 const utilities = require("../utilities/")
 
 const invCont = {}
 
-
-/* ***************************
+/*****************
  *  Build inventory by classification view
  * ************************** */
 invCont.buildByClassificationId = async function (req, res, next) {
@@ -37,4 +37,53 @@ invCont.buildByDetailsView = async function (req, res, next) {
   })
 }
 
-module.exports = invCont 
+invCont.buildManagement = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  res.render("inventory/management", {
+    title: "Inventory Management",
+    nav,
+    // messages: req.flash(),
+  })
+}
+
+invCont.buildAddClassification = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  res.render("inventory/add-classification", {
+    title: "Add new Classification",
+    nav,
+    errors: null,
+    classification_name: "",
+  });
+};
+
+invCont.addClassification = async function (req,res) {
+const {classification_name} = req.body;
+
+const errors = validationResult(req);
+let nav = await utilities.getNav();
+
+if(!errors.isEmpty()){
+  return res.render("inventory/add-classification", {
+    title: "Add new Classification",
+    nav,
+    errors, 
+    classification_name,
+  });
+}
+try {
+  const result = await invModel.addNewClassification(classification_name);
+
+  req.flash("notice", `Classification '${result.classification_name}' added successfully.`);
+
+  res.redirect("/inv/management");
+} catch (error) {
+  res.render("inventory/add-classification", {
+    title: "Add Classification",
+    nav,
+    errors: [{ msg: error.message }],
+    classification_name,
+  });
+}
+};
+
+module.exports = invCont; 
