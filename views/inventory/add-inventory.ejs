@@ -1,0 +1,74 @@
+<% if (title) { %>
+    <h1><%= title %></h1>
+<% } else { res.redirect('/')} %>
+
+<%- messages() %>
+
+<% if(errors) { %>
+    <ul class="notice">
+        <% errors.array().forEach(error => { %>
+        <li><%= error.msg %></li>
+        <%   }) %>
+    </ul>
+<% } %> 
+
+<form method="post" novalidate>
+    <fieldset>Field is required</fieldset>
+
+    <!-- Classification ID  SELECT TO DROPDOW! classification_id integer NOT NULL, -->
+    <label for="classification_id">Classification Name</label>
+    <%- classificationList %>
+ 
+    <!-- inv_make character varying NOT NULL,  -->
+    <label for="inv_make">Make: </label>
+    <input type="text" id="inv_make" name="inv_make" required title="Enter make"
+    placeholder="Enter" maxlength="45" value="<%= locals.inv_make %>">
+
+    <!-- inv_model character varying NOT NULL, -->
+    <label for="inv_model">Model: </label>
+    <input type="text" id="inv_model" name="inv_model" required title="Enter a model"
+    placeholder="Enter" maxlength="45" value="<%= locals.inv_model %>">
+
+    <!-- inv_year character(4) NOT NULL, -->
+    <label for="inv_year">Year </label>
+    <input type="text" id="inv_year" name="inv_year" required title="Enter a year"
+    placeholder="Enter" pattern="^\d{4}$" minlength="4" maxlength="4" value="<%= locals.inv_year %>">
+
+    <!-- inv_description text NOT NULL, -->
+    <label for="inv_description">Description</label>
+    <textarea name="inv_description" id="inv_description" required><%= locals.inv_description %></textarea>
+
+    <!-- inv_image character varying NOT NULL, -->
+    <label for="inv_image">Image </label>
+    <input type="text" id="inv_image" name="inv_image" required title="Enter a path for the image"
+    placeholder="Enter" value="<%= locals.inv_image %>">
+
+    <!-- inv_thumbnail character varying NOT NULL, -->
+    <label for="inv_thumbnail">Thumbnail </label>
+    <input type="text" id="inv_thumbnail" name="inv_thumbnail" required title="Enter a New Classification"
+    placeholder="Enter" value="<%= locals.inv_thumbnail %>">
+
+    <!-- inv_price numeric(9,0) NOT NULL, -->
+    <label for="inv_price">Price </label>
+    <input type="text" pattern="^\d{9}$" maxlength="8" id="inv_price" name="inv_price" required title="Enter a New Classification"
+    placeholder="Enter" value="<%= locals.inv_price %>">
+
+    <!-- inv_miles integer NOT NULL, -->
+    <label for="inv_miles">Miles </label>
+    <input type="text" pattern="^\d{8}$" maxlength="8" id="inv_miles" name="inv_miles" required title="Enter a New Classification"
+    placeholder="Enter" value="<%= locals.inv_miles %>">
+
+    <!-- inv_color character varying NOT NULL  -->
+    <label for="inv_color">Color </label>
+    <input type="text" maxlength="45" id="inv_color" name="inv_color" required title="Enter a New Classification"
+    placeholder="Enter" value="<%= locals.inv_color %>">
+
+    <button id="AddOnInventory" type="submit">Add New Car</button>
+</form>
+
+
+
+
+
+
+
