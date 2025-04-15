@@ -1,11 +1,23 @@
 <div class="management">
-<% if (title) { %>
-    <h1><%= title %></h1>
-<% } else { res.redirect('/')} %>
-
-<%- messages() %>
-
-<p><a href="/inv/add-classification">Add Classification</a></p>
-<p><a href="/inv/add-inventory">Add a New Item to the Inventory</a></p>
-
-</div>
+    <% if (title) { %>
+        <h1><%= title %></h1>
+    <% } else { res.redirect('/') } %>
+  
+    <%- messages() %>
+  
+    <div class="management-actions">
+      <p><a href="/inv/add-classification">Add Classification</a></p>
+      <p><a href="/inv/add-inventory">Add a New Item to the Inventory</a></p>
+    </div>
+  
+    <h2>Manage Inventory</h2>
+    <p>Choose a classification to see those inventory items</p>
+    <%- classificationSelect %>
+  
+    <table class="inventory-table" id="inventoryDisplay"></table>
+  
+    <noscript>JavaScript must be enabled to use this page</noscript>
+  </div>
+  
+  <script src="../../js/inventory.js"></script>
+<!-- <script src="/js/inventory.js"></script> -->

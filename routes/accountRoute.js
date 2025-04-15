@@ -8,6 +8,13 @@ const accountsController = require("../controllers/accountsController")
 //Deliver Login View
 router.get('/login' , accountsController.buildLogin);
 
+//Process Login
+router.post('/login', 
+    regValidate.loginRules(), 
+    regValidate.checkLoginData, 
+    utilities.handleErrors(accountsController.accountLogin));
+
+
 //Deliver Registration View
 router.get('/register', accountsController.buildRegister);
 
@@ -16,6 +23,11 @@ router.post('/register',
     regValidate.registrationRules(),
     regValidate.checkRegData,
     utilities.handleErrors(accountsController.registerAccount));
+
+
+// Deliver account management view
+router.get("/",utilities.checkLogin, utilities.handleErrors(accountsController.buildManagement))
+
 
 router.use(utilities.handleErrors);
 module.exports = router;

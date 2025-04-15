@@ -4,9 +4,11 @@ const router = new express.Router()
 const invController = require("../controllers/invController")
 const validateClass = require("../utilities/class-validation")
 const validateInv = require("../utilities/inv-validation")
+const utilities = require("../utilities") 
+
 
 //Route to menu management
-router.get("/", invController.buildManagement)
+router.get("/", invController.buildManagementView)
 
 //Route to add a new classification
 router.get("/add-classification", invController.buildAddClassification)
@@ -16,6 +18,13 @@ router.post(
   validateClass.classificationRules(),
   validateClass.checkClassData,
   invController.addClassification
+)
+
+//Get inventory for AJAX Route
+router.get (
+  "/getInventory/:classification_id",
+  // utilities.checkAccountType,
+  utilities.handleErrors(invController.getInventoryJSON)
 )
 
 //Route to add a new car in the inventory
