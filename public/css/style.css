@@ -341,6 +341,10 @@ form label {
   transition: background-color 0.3s ease, transform 0.1s ease;
 }
 
+#AddOnInventory:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 
 #loginSubmit:hover,
 #registerSubmit:hover,
