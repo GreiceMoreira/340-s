@@ -70,9 +70,13 @@ accCont.registerAccount = async function (req, res) {
 
 
 accCont.accountLogin = async function (req, res) {
+
     let nav = await utilities.getNav()
+
     const { account_email, account_password } = req.body
+
     const accountData = await accountModel.getAccountByEmail(account_email)
+
     if (!accountData) {
       req.flash("notice", "Please check your credentials and try again.")
       return res.status(400).render("account/login", {
@@ -95,9 +99,9 @@ accCont.accountLogin = async function (req, res) {
           ...(process.env.NODE_ENV !== "development" && { secure: true }),
         }
         res.cookie("jwt", accessToken, cookieSettings)
-        return res.redirect("/account")
+        return res.redirect("/inv")
       } else {
-        req.flash("message notice", "Please check your credentials and try again.")
+        req.flash("notice", "Please check your credentials and try again.")
         return res.status(400).render("account/login", {
           title: "Login",
           nav,

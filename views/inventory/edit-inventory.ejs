@@ -12,7 +12,7 @@
     </ul>
 <% } %> 
 
-<form method="post" novalidate>
+<form action="/inv/update" method="post" novalidate>
     <fieldset>Field is required</fieldset>
 
     <!-- Classification ID  SELECT TO DROPDOW! classification_id integer NOT NULL, -->
@@ -63,7 +63,9 @@
     <input type="text" maxlength="45" id="inv_color" name="inv_color" required title="Enter a New Classification"
     placeholder="Enter" value="<%= locals.inv_color %>">
 
-    <button id="AddOnInventory" type="submit">Add New Car</button>
+    <button id="AddOnInventory" type="submit">Update Vehicle</button>
+    <input type="hidden" name="inv_id"
+    <% if(locals.inv_id) { %> value="<%= locals.inv_id %>" <% } %>>
 </form>
 
 

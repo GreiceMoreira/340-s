@@ -91,7 +91,7 @@ try {
 }
 };
 
-invCont.buildAddOnInventory = async function (req, res, next) {
+invCont.renderAddInventoryForm = async function (req, res, next) {
   let nav = await utilities.getNav()
   let classificationList = await utilities.buildClassificationList()
   res.render("inventory/add-inventory", {
@@ -144,5 +144,147 @@ invCont.getInventoryJSON = async (req,res,next) => {
     next(new Error("No data returned"))
   }
 }
+
+/* ***************************
+ *  Build edit inventory view
+ * ************************** */
+invCont.editInventoryView = async function (req, res, next) {
+
+  const inv_id = parseInt(req.params.inventory_id)
+
+
+  let nav = await utilities.getNav()
+  const itemData = await invModel.getVehicleById(inv_id)
+  console.log(itemData)
+
+
+  const classificationSelect = await utilities.buildClassificationList(itemData.classification_id)
+
+  const itemName = `${itemData.inv_make} ${itemData.inv_model}`
+  console.log(`itemName ${itemName}`)
+
+  res.render("./inventory/edit-inventory", {
+    title: "Edit " + itemName,
+    nav,
+    classificationList: classificationSelect,
+    errors: null,
+    inv_id: itemData.inv_id,
+    inv_make: itemData.inv_make,
+    inv_model: itemData.inv_model,
+    inv_year: itemData.inv_year,
+    inv_description: itemData.inv_description,
+    inv_image: itemData.inv_image,
+    inv_thumbnail: itemData.inv_thumbnail,
+    inv_price: itemData.inv_price,
+    inv_miles: itemData.inv_miles,
+    inv_color: itemData.inv_color,
+    classification_id: itemData.classification_id
+  })
+}
+
+// Edit invetory
+invCont.updateInventory = async function (req, res) {
+  const {
+    inv_id,
+    inv_make,
+    inv_model,
+    inv_year,
+    inv_description,
+    inv_image,
+    inv_thumbnail,
+    inv_price,
+    inv_miles,
+    inv_color,
+    classification_id
+  } = req.body;
+
+  const errors = validationResult(req);
+  let nav = await utilities.getNav();
+
+  if (!errors.isEmpty()) {
+    let classificationList = await utilities.buildClassificationList(classification_id);
+    return res.status(400).render("inventory/edit-inventory", {
+      title: "Edit " + inv_make + " " + inv_model,
+      nav,
+      errors,
+      classificationSelect: classificationList,
+      inv_id,
+      inv_make,
+      inv_model,
+      inv_year,
+      inv_description,
+      inv_image,
+      inv_thumbnail,
+      inv_price,
+      inv_miles,
+      inv_color,
+      classification_id
+    });
+  }
+
+  try {
+    const updateResult = await invModel.updateInventory(
+      inv_id,
+      inv_make,
+      inv_model,
+      inv_description,
+      inv_image,
+      inv_thumbnail,
+      inv_price,
+      inv_year,
+      inv_miles,
+      inv_color,
+      classification_id
+    );
+
+    if (updateResult) {
+      const itemName = `${inv_make} ${inv_model}`;
+      req.flash("notice", `The ${itemName} was successfully updated.`);
+      return res.redirect("/inv/");
+    } else {
+      const classificationList = await utilities.buildClassificationList(classification_id);
+      const itemName = `${inv_make} ${inv_model}`;
+      req.flash("notice", "Sorry, the update failed.");
+      return res.status(501).render("inventory/edit-inventory", {
+        title: "Edit " + itemName,
+        nav,
+        classificationSelect: classificationList,
+        errors: null,
+        inv_id,
+        inv_make,
+        inv_model,
+        inv_year,
+        inv_description,
+        inv_image,
+        inv_thumbnail,
+        inv_price,
+        inv_miles,
+        inv_color,
+        classification_id
+      });
+    }
+  } catch (error) {
+    req.flash("notice", "An error occurred while updating the vehicle.");
+    return res.status(500).render("inventory/edit-inventory", {
+      title: "Edit " + inv_make + " " + inv_model,
+      nav,
+      classificationSelect: await utilities.buildClassificationList(classification_id),
+      errors: [{ msg: error.message }],
+      inv_id,
+      inv_make,
+      inv_model,
+      inv_year,
+      inv_description,
+      inv_image,
+      inv_thumbnail,
+      inv_price,
+      inv_miles,
+      inv_color,
+      classification_id
+    });
+  }
+}
+
+
 
 module.exports = invCont; 

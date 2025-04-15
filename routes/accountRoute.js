@@ -4,6 +4,7 @@ const regValidate = require("../utilities/account-validation")
 const express = require("express")
 const router = new express.Router()
 const accountsController = require("../controllers/accountsController")
+const invController = require("../controllers/invController")
 
 //Deliver Login View
 router.get('/login' , accountsController.buildLogin);
@@ -26,7 +27,9 @@ router.post('/register',
 
 
 // Deliver account management view
-router.get("/",utilities.checkLogin, utilities.handleErrors(accountsController.buildManagement))
+router.get("/",
+    utilities.checkLogin, 
+    utilities.handleErrors(invController.buildManagementView))
 
 
 router.use(utilities.handleErrors);

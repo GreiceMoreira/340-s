@@ -28,7 +28,7 @@ router.get (
 )
 
 //Route to add a new car in the inventory
-router.get("/add-inventory", invController.buildAddOnInventory)
+router.get("/add-inventory", invController.renderAddInventoryForm)
 
 router.post("/add-inventory", 
   validateInv.invRules(), 
@@ -41,7 +41,14 @@ router.get("/type/:classificationId", invController.buildByClassificationId);
 //Route to build inventory by details view
 router.get("/detail/:invId", invController.buildByDetailsView);
 
+// Route to edit a car in the inventory
+router.get("/edit/:inventory_id", invController.editInventoryView);
 
-
+router.post(
+  "/update/",
+  validateInv.invRules(),
+  validateInv.checkUpdateData,
+  invController.updateInventory
+)
 module.exports = router;
 
