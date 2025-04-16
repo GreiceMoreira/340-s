@@ -86,7 +86,7 @@ validate.loginRules = () => {
     ]
   }
 
-  validate.checkLoginData = async (req, res, next) => {
+validate.checkLoginData = async (req, res, next) => {
     const { account_email } = req.body
     let errors = validationResult(req)
     if (!errors.isEmpty()) {
@@ -102,4 +102,38 @@ validate.loginRules = () => {
     next()
   }
 
+validate.updateAccountRules = () => {
+    return [
+      body("account_firstname")
+        .trim()
+        .isLength({ min: 1 })
+        .withMessage("Please provide a first name."),
+      body("account_lastname")
+        .trim()
+        .isLength({ min: 1 })
+        .withMessage("Please provide a last name."),
+      body("account_email")
+        .trim()
+        .isEmail()
+        .normalizeEmail()
+        .withMessage("A valid email is required."),
+    ];
+  };
+  validate.updatePasswordRules = () => {
+    return [
+      body("new_password")
+        .trim()
+        .isLength({ min: 12 })
+        .withMessage("Password must be at least 12 characters long.")
+        .matches("[A-Z]")
+        .withMessage("Password must have at least one uppercase letter.")
+        .matches("[a-z]")
+        .withMessage("Password must have at least one lowercase letter.")
+        .matches("[0-9]")
+        .withMessage("Password must have at least one number.")
+        .matches("[^A-Za-z0-9]")
+        .withMessage("Password must have at least one special character."),
+    ];
+  };
+  
 module.exports = validate

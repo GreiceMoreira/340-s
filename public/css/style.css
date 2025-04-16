@@ -45,6 +45,14 @@ header {
   margin: 1rem 0;
 }
 
+#top-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
 header a {
   text-decoration: none;
   color: var(--dark);
@@ -510,4 +518,99 @@ input:required:invalid, input:focus:invalid {
 
 .management-actions a:hover {
   background-color: var(--blue-dark);
+}
+
+/* Account Management */
+#account-management {
+  background-color: var(--grey);
+  padding: 2rem;
+  margin: 2rem auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+}
+
+#account-management h1 {
+  font-size: 2.5rem;
+  color: var(--blue);
+  margin-bottom: 1.5rem;
+}
+
+#account-management .management-actions {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+}
+
+#account-management .management-actions .btn {
+  background-color: var(--blue);
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+#account-management .management-actions .btn:hover {
+  background-color: var(--blue-dark);
+}
+
+#account-management section {
+  margin-top: 3rem;
+}
+
+#account-management section h2 {
+  font-size: 2rem;
+  color: var(--blue-dark);
+  margin-bottom: 0.5rem;
+}
+
+#account-management section p {
+  font-size: 1rem;
+  color: var(--dark);
+}
+
+
+
+#tools {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+#tools a {
+  text-decoration: none;
+  font-size: var(--fs-small);
+}
+
+#tools a:hover {
+  color: var(--dark);
+}
+
+.logout-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logout-button {
+  background-color: var(--blue);
+  color: white;
+  padding: 0.6rem 1rem;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.logout-button:hover {
+  background-color: var(--blue-dark);
+  cursor: pointer;
+}
+
+.logout-button:active {
+  background-color: var(--blue-dark);
+  transform: scale(0.98);
 }
