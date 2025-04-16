@@ -125,7 +125,7 @@ invCont.addNewCar = async function (req, res) {
 
         req.flash("notice", `A new car was add in the inventory`)
 
-        res.redirect("/inv/management");
+        res.redirect("/inv");
     } catch(error) {
       res.render("inventory/add-inventory", {
         title: "Add new car",
@@ -152,16 +152,13 @@ invCont.editInventoryView = async function (req, res, next) {
 
   const inv_id = parseInt(req.params.inventory_id)
 
-
   let nav = await utilities.getNav()
   const itemData = await invModel.getVehicleById(inv_id)
-  console.log(itemData)
-
 
   const classificationSelect = await utilities.buildClassificationList(itemData.classification_id)
 
   const itemName = `${itemData.inv_make} ${itemData.inv_model}`
-  console.log(`itemName ${itemName}`)
+
 
   res.render("./inventory/edit-inventory", {
     title: "Edit " + itemName,
@@ -284,7 +281,71 @@ invCont.updateInventory = async function (req, res) {
     });
   }
 }
+/* ***************************
+ *  Build DELETE inventory view
+ * ************************** */
+invCont.deleteInventoryView = async function (req, res, next) {
+  let nav = await utilities.getNav()
 
+  const inv_id = parseInt(req.params.inv_id)
+  
+  const itemData = await invModel.getVehicleById(inv_id)
+
+  const itemName = `${itemData.inv_make} ${itemData.inv_model}`
+
+  res.render("./inventory/delete-confirm", {
+    title: "Delete " + itemName,
+    nav,
+    errors: null,
+    inv_id: itemData.inv_id,
+    inv_make: itemData.inv_make,
+    inv_model: itemData.inv_model,
+    inv_year: itemData.inv_year,
+    inv_price: itemData.inv_price,
+  })
+}
+
+// Deleted item from the invetory
+invCont.deleteItem = async function (req, res) {
+  let nav = await utilities.getNav();
+
+  const inv_id = parseInt(req.body.inv_id) ;
+  let vehicle = {}
+
+  try {
+    const vehicle = await invModel.getVehicleById(inv_id);
+    const itemName = `${vehicle.inv_make} ${vehicle.inv_model}`;
+    
+    
+    const deleteResult = await invModel.deleteInventoryItem(inv_id)
+
+    if (deleteResult) {
+      req.flash("notice", `The ${itemName} was successfully deleted.`);
+      return res.redirect("/inv/");
+    } else {
+      req.flash("notice", "Sorry, the delete failed.");
+      return res.status(501).render("inventory/delete-confirm", {
+        title: "Delete " + itemName,
+        nav,
+        errors: null,
+        inv_id,
+        inv_make: vehicle.inv_make,
+        inv_model: vehicle.inv_model,
+
+      });
+    }
+  } catch (error) {
+    req.flash("notice", "An error occurred while deleting the vehicle.");
+    return res.status(500).render("inventory/delete-confirm", {
+      title: "Delete vehicle doesn't work",
+      nav,
+      errors: [{ msg: error.message }],
+      inv_id,
+      inv_make: vehicle.inv_make || "Unknown",
+      inv_model: vehicle.inv_model || "Unknown",
+    });
+  }
+}
 
 
 module.exports = invCont; 

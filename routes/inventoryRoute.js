@@ -50,5 +50,11 @@ router.post(
   validateInv.checkUpdateData,
   invController.updateInventory
 )
+
+// Route to DELETE a car in the inventory
+router.get("/delete/:inv_id", invController.deleteInventoryView);
+
+router.post("/delete/", invController.deleteItem);
+
 module.exports = router;
 
