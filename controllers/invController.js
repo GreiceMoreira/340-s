@@ -347,5 +347,47 @@ invCont.deleteItem = async function (req, res) {
   }
 }
 
+invCont.compareVehiclesView = async function (req, res) {
+  let nav = await utilities.getNav()
+  try {
+    const vehicles = await invModel.getAllInventory()
+    console.log(vehicles)
+    // const vehicles = data.rows
+    // console.log(vehicles)
 
+    res.render("inventory/compareCars", {
+      title: "Compare Vehicles",
+      nav,
+      vehicles,
+    })
+  } catch (error) {
+    console.error("Error loading compare cars page:", error)
+    res.status(500).send("Server error while loading compare cars page.")
+  }
+}
+
+invCont.compareVehiclesResult = async function (req, res) {
+  let nav = await utilities.getNav()
+  const { vehicle1, vehicle2 } = req.body
+
+  try {
+    const data1 = await invModel.getVehicleById(vehicle1)
+    const data2 = await invModel.getVehicleById(vehicle2)
+
+
+    if (!data1 || !data2) {
+      return res.status(404).send("One or both vehicles not found")
+    }
+
+    res.render("inventory/compareResult", {
+      title: "Comparison Result",
+      nav,
+      vehicle1: data1,
+      vehicle2: data2,
+    })
+  } catch (err) {
+    console.error("Error comparing vehicles:", err)
+    res.status(500).send("Server error during comparison")
+  }
+}
 module.exports = invCont; 

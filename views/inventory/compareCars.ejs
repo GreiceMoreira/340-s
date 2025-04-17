@@ -1,0 +1,24 @@
+<div class="management">
+    <% if (title) { %>
+        <h1><%= title %></h1>
+    <% } else { res.redirect('/') } %>
+  
+    <form action="/inv/compareResult" method="POST">
+        <label for="vehicle1">Vehicle 1:</label>
+        <select name="vehicle1" id="vehicle1" required>
+          <option value="" disabled selected>Select the first vehicle</option>
+          <% vehicles.forEach(vehicle => { %>
+            <option value="<%= vehicle.inv_id %>"><%= vehicle.inv_make %> <%= vehicle.inv_model %> (<%= vehicle.inv_year %>)</option>
+          <% }) %>
+        </select>
+      
+        <label for="vehicle2">Vehicle 2:</label>
+        <select name="vehicle2" id="vehicle2" required>
+          <option value="" disabled selected>Select the second vehicle</option>
+          <% vehicles.forEach(vehicle => { %>
+            <option value="<%= vehicle.inv_id %>"><%= vehicle.inv_make %> <%= vehicle.inv_model %> (<%= vehicle.inv_year %>)</option>
+          <% }) %>
+        </select>
+  
+    <button type="submit">Compare</button>
+</form>

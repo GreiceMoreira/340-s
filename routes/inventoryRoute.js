@@ -56,5 +56,10 @@ router.get("/delete/:inv_id", invController.deleteInventoryView);
 
 router.post("/delete/", invController.deleteItem);
 
+//Route to compare two cars
+router.get("/compareCars", invController.compareVehiclesView) 
+
+router.post('/compareResult', invController.compareVehiclesResult)
+
 module.exports = router;
 

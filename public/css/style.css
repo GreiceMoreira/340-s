@@ -337,7 +337,8 @@ form label {
 #loginSubmit,
 #registerSubmit,
 #AddOnInventory,
-#AddClassification {
+#AddClassification,
+#seeDetails {
   font-size: var(--fs-medium);
   padding: 1rem;
   margin: 1rem 0.5rem 0.5rem 0.5rem;
@@ -357,10 +358,15 @@ form label {
 #loginSubmit:hover,
 #registerSubmit:hover,
 #AddOnInventory:hover,
-#AddClassification  {
+#AddClassification:hover {
   background-color: var(--blue-light); 
   border: 1px solid var(--dark);
 }
+
+#seeDetails:hover {
+  background-color: var(--blue);
+}
+
 
 .register {
   display: block;
@@ -619,4 +625,25 @@ input:required:invalid, input:focus:invalid {
   margin-top: 8px;
   padding: 8px;
   color: white;
+}
+
+.comparison {
+  display: flex;
+  flex-direction: column; 
+  gap: 2rem;
+  margin-top: 2rem;
+  justify-content: space-evenly;
+}
+
+.vehicle {
+  background: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center; 
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }

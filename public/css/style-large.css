@@ -8,7 +8,7 @@
     }
 
     .navigation a {
-        font-size: 2rem;
+        font-size: 1.2rem;
     }
     #inv-display {
         flex-direction: row;
@@ -40,6 +40,10 @@
 
       #top-header {
         flex-direction: row;
+      }
+
+      .comparison {
+        flex-direction: row; 
       }
 
 }

@@ -1,0 +1,32 @@
+<div class="management">
+    <% if (title) { %>
+      <h1><%= title %></h1>
+    <% } else { res.redirect('/') } %>
+
+    <div class="comparison">
+      <div class="vehicle">
+        <h2>Vehicle 1</h2>
+        <img src="<%= vehicle1.inv_thumbnail %>" alt="Vehicle 1 Image">
+        <p><strong>Make:</strong> <%= vehicle1.inv_make %></p>
+        <p><strong>Model:</strong> <%= vehicle1.inv_model %></p>
+        <p><strong>Year:</strong> <%= vehicle1.inv_year %></p>
+        <p><strong>Price:</strong> $<%= vehicle1.inv_price %></p>
+        <a class="button" id="seeDetails" href="/inv/detail/<%= vehicle2.inv_id %>" title="View <%= vehicle1.inv_make %> <%= vehicle1.inv_model %> details">
+            See details
+          </a>
+      </div>
+
+      <div class="vehicle">
+        <h2>Vehicle 2</h2>
+        <img src="<%= vehicle2.inv_thumbnail %>" alt="Vehicle 2 Image">
+        <p><strong>Make:</strong> <%= vehicle2.inv_make %></p>
+        <p><strong>Model:</strong> <%= vehicle2.inv_model %></p>
+        <p><strong>Year:</strong> <%= vehicle2.inv_year %></p>
+        <p><strong>Price:</strong> $<%= vehicle2.inv_price %></p>
+        <p><strong>Color:</strong> <%= vehicle2.inv_color %></p>
+        <a class="button" id="seeDetails" href="/inv/detail/<%= vehicle2.inv_id %>" title="View <%= vehicle1.inv_make %> <%= vehicle1.inv_model %> details">
+            See details
+          </a>
+      </div>
+    </div>
+  </div>

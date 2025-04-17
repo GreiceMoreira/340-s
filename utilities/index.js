@@ -12,6 +12,7 @@ Util.getNav = async function (req, res, next) {
 
   //console.log(data)
   list += '<li><a href="/" title="Home page">Home</a></li>'
+  list += '<li><a href="/inv/compareCars" title="Compare Cars">Compare Cars</a></li>'
   data.rows.forEach((row) => {
     list += "<li>"
     list +=
@@ -31,85 +32,77 @@ Util.getNav = async function (req, res, next) {
 /* **************************************
 * Build the classification view HTML
 * ************************************ */
-Util.buildClassificationGrid = async function(data){
-  let grid
-  if(data.length > 0){
-    grid = '<ul id="inv-display">'
-    data.forEach(vehicle => { 
-      grid += '<li>'
-      grid +=  '<a href="../../inv/detail/'+ vehicle.inv_id 
-      + '" title="View ' + vehicle.inv_make + ' '+ vehicle.inv_model 
-      + 'details"><img src="' + vehicle.inv_thumbnail 
-      +'" alt="Image of '+ vehicle.inv_make + ' ' + vehicle.inv_model 
-      +' on CSE Motors" /></a>'
-      grid += '<div class="namePrice">'
-      grid += '<hr />'
-      grid += '<h2>'
-      grid += '<a href="../../inv/detail/' + vehicle.inv_id +'" title="View ' 
-      + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">' 
-      + vehicle.inv_make + ' ' + vehicle.inv_model + '</a>'
-      grid += '</h2>'
-      grid += '<span>$' 
-      + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</span>'
-      grid += '</div>'
-      grid += '</li>'
-    })
-    grid += '</ul>'
-  } else { 
-    grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
+Util.buildClassificationGrid = async function (data) {
+  if (!data.length) {
+    return '<p class="notice">Sorry, no matching vehicles could be found.</p>'
   }
-  return grid
+
+  const vehicleList = data.map(vehicle => {
+    return `
+      <li>
+        <a href="/inv/detail/${vehicle.inv_id}" title="View ${vehicle.inv_make} ${vehicle.inv_model} details">
+          <img src="/${vehicle.inv_thumbnail}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model} on CSE Motors" />
+        </a>
+        <div class="namePrice">
+          <hr />
+          <h2>
+            <a href="/inv/detail/${vehicle.inv_id}" title="View ${vehicle.inv_make} ${vehicle.inv_model} details">
+              ${vehicle.inv_make} ${vehicle.inv_model}
+            </a>
+          </h2>
+          <span>$${new Intl.NumberFormat('en-US').format(vehicle.inv_price)}</span>
+        </div>
+      </li>
+    `
+  }).join('')
+
+  return `<ul id="inv-display">${vehicleList}</ul>`
 }
 
 /* **************************************
 * Build the details view HTML
 * ************************************ */
-Util.buildDetailsView = async function(vehicle){
-  let detailsView = ""
-  
-  if (vehicle) {
-    detailsView += '<div id="det-display">';
-    
-    // Vehicle title
-    detailsView += '<h1>' + vehicle.inv_year + ' ' + vehicle.inv_make + ' ' + vehicle.inv_model + '</h1>';
-    
-    detailsView += '<div class="card-details">'; //Card .card-details
-    // Vehicle image with link
-    detailsView += '<section class="vehicleDetailsImg>'; //Open section vehicle details image
-    detailsView += '<a href="../../inv/detail/' + vehicle.inv_id + '" title="View ' + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">';
-    detailsView += '<img src="' + vehicle.inv_thumbnail + '" alt="Image of ' + vehicle.inv_make + ' ' + vehicle.inv_model + ' on CSE Motors" />';
-    detailsView += '</a>';
-    detailsView += '</section>'; //Close section vehicle details image
-
-    detailsView += '<section class="more">'; //Open section details 
-
-    // Price and model name
-    detailsView += '<div class="namePrice">';
-    detailsView += '<hr />';
-    detailsView += '<h2>';
-    detailsView += '<a href="../../inv/detail/' + vehicle.inv_id + '" title="View ' + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">';
-    detailsView += vehicle.inv_make + ' ' + vehicle.inv_model;
-    detailsView += '</a>';
-    detailsView += '</h2>';
-    
-  // Vehicle Details in a List
-    detailsView += '<ul class="vehicle-details">';
-    detailsView += '<li><b>Price: </b>$' + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</li>';
-    detailsView += '<li><b>Description: </b>' + vehicle.inv_description + '</li>';
-    detailsView += '<li><b>Color: </b>' + vehicle.inv_color + '</li>';
-    detailsView += '<li><b>Miles: </b>' + new Intl.NumberFormat('en-US').format(vehicle.inv_miles) + '</li>';
-    detailsView += '</ul>';
-
-    detailsView += '</section>'; //Close section details 
-
-    detailsView += '</div>'; //Close .card-details
-    detailsView += '</div>'; // Close #det-display
-  } else { 
-    detailsView += '<p class="notice">Sorry, no matching vehicles could be found.</p>';
+Util.buildDetailsView = async function(vehicle) {
+  if (!vehicle) {
+    return `<p class="notice">Sorry, no matching vehicles could be found.</p>`
   }
+
+  const formattedPrice = new Intl.NumberFormat('en-US').format(vehicle.inv_price)
+  const formattedMiles = new Intl.NumberFormat('en-US').format(vehicle.inv_miles)
+
+  const detailsView = `
+    <div id="det-display">
+      <h1>${vehicle.inv_year} ${vehicle.inv_make} ${vehicle.inv_model}</h1>
+      
+      <div class="card-details">
+        <section class="vehicleDetailsImg">
+          <a href="../../inv/detail/${vehicle.inv_id}" title="View ${vehicle.inv_make} ${vehicle.inv_model} details">
+            <img src="${vehicle.inv_thumbnail}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model} on CSE Motors" />
+          </a>
+        </section>
+
+        <section class="more">
+          <div class="namePrice">
+            <hr />
+            <h2>
+              <a href="../../inv/detail/${vehicle.inv_id}" title="View ${vehicle.inv_make} ${vehicle.inv_model} details">
+                ${vehicle.inv_make} ${vehicle.inv_model}
+              </a>
+            </h2>
+          </div>
+
+          <ul class="vehicle-details">
+            <li><b>Price:</b> $${formattedPrice}</li>
+            <li><b>Description:</b> ${vehicle.inv_description}</li>
+            <li><b>Color:</b> ${vehicle.inv_color}</li>
+            <li><b>Miles:</b> ${formattedMiles}</li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  `
   return detailsView
 }
-
 /* *****************
 * Middleware For Handling Errors
 * Wrap other function in this for 

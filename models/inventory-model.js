@@ -39,6 +39,17 @@ async function getVehicleById(inv_id) {
   }
 }
 
+async function getAllInventory() {
+  try {
+    const sql = "SELECT * FROM inventory ORDER BY inv_make, inv_model"
+    const result = await pool.query(sql)
+    return result.rows
+  } catch (error) {
+    console.error("Error fetching all inventory:", error.message)
+    return []
+  }
+}
+
 /* ***************************
  * Post a single classification
  * ************************** */
@@ -117,4 +128,5 @@ module.exports = {getClassifications,
                   addNewClassification, 
                   addMyNewCar,
                   updateInventory,
-                  deleteInventoryItem}
+                  deleteInventoryItem,
+                  getAllInventory}
