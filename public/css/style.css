@@ -614,3 +614,9 @@ input:required:invalid, input:focus:invalid {
   background-color: var(--blue-dark);
   transform: scale(0.98);
 }
+
+.account-form p {
+  margin-top: 8px;
+  padding: 8px;
+  color: white;
+}

@@ -25,13 +25,11 @@ router.post('/register',
     regValidate.checkRegData,
     utilities.handleErrors(accountsController.registerAccount));
 
-
 // Deliver account management view
 router.get("/",
     utilities.checkLogin, 
     utilities.handleErrors(accountsController.buildManagementView)
   )
-
 
 router.get("/logout", accountsController.logout)
 
@@ -41,13 +39,13 @@ router.get("/update/:account_id", utilities.checkJWTToken, accountsController.bu
 // Processar update de info
 router.post("/updateInfo", 
     regValidate.updateAccountRules(),
-    regValidate.checkRegData,
+    regValidate.checkUpData,
     utilities.handleErrors(accountsController.updateAccountInfo));
 
 // Processar update de senha
 router.post("/updatePassword",
     regValidate.updatePasswordRules(), 
-    regValidate.checkRegData,
+    regValidate.checkPassUpData,
     utilities.handleErrors(accountsController.updateAccountPassword));
 
 router.use(utilities.handleErrors);

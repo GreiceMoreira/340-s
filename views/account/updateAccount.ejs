@@ -6,13 +6,12 @@
 
 <% if (errors) { %>
   <ul class="notice">
-    <% errors.forEach(error => { %>
+    <% errors.array().forEach(error => { %>
       <li><%= error.msg %></li>
     <% }) %>
   </ul>
 <% } %>
 
-<!-- Formulário 1: Atualização de informações da conta -->
 <form action="/account/updateInfo" method="post" novalidate class="account-form">
   <input type="hidden" name="account_id" value="<%= accountData.account_id %>">
 
@@ -25,12 +24,11 @@
   <label for="account_email">Email:</label>
   <input type="email" id="account_email" name="account_email" required value="<%= accountData.account_email %>">
 
-  <button type="submit" class="btn">Update Account</button>
+  <button type="submit" id="registerSubmit">Update Account</button>
 </form>
 
 <hr>
 
-<!-- Formulário 2: Alteração de senha -->
 <form action="/account/updatePassword" method="post" novalidate class="account-form">
   <input type="hidden" name="account_id" value="<%= accountData.account_id %>">
 
@@ -39,5 +37,5 @@
   <label for="new_password">New Password:</label>
   <input type="password" id="new_password" name="new_password" required>
 
-  <button type="submit" class="btn">Change Password</button>
+  <button type="submit" id="registerSubmit">Change Password</button>
 </form>

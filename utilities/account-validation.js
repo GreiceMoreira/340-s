@@ -72,6 +72,44 @@ validate.checkRegData = async (req, res, next) => {
     next()
 }
 
+validate.checkUpData = async (req, res, next) => {
+  const {account_firstname, account_lastname, account_email, account_id} =
+  req.body
+  let errors = []
+  errors = validationResult(req)
+
+  if(!errors.isEmpty()){
+      let nav = await utilities.getNav()
+      res.render("account/updateAccount", {
+          errors,
+          title: "Update Account",
+          nav, 
+          account_firstname, 
+          account_lastname,
+          account_email,
+      })
+      return
+  }
+  next()
+}
+validate.checkPassUpData = async (req, res, next) => {
+  const account_password = req.body
+  let errors = []
+  errors = validationResult(req)
+
+  if(!errors.isEmpty()){
+      let nav = await utilities.getNav()
+      res.render("account/updateAccount", {
+          errors,
+          title: "Update Account",
+          nav, 
+          account_password, 
+      })
+      return
+  }
+  next()
+}
+
 validate.loginRules = () => {
     return [
       body("account_email")
@@ -84,7 +122,7 @@ validate.loginRules = () => {
         .notEmpty()
         .withMessage("Password is required")
     ]
-  }
+  };
 
 validate.checkLoginData = async (req, res, next) => {
     const { account_email } = req.body
@@ -100,7 +138,7 @@ validate.checkLoginData = async (req, res, next) => {
       return
     }
     next()
-  }
+  };
 
 validate.updateAccountRules = () => {
     return [
@@ -119,6 +157,7 @@ validate.updateAccountRules = () => {
         .withMessage("A valid email is required."),
     ];
   };
+
   validate.updatePasswordRules = () => {
     return [
       body("new_password")
@@ -133,7 +172,8 @@ validate.updateAccountRules = () => {
         .withMessage("Password must have at least one number.")
         .matches("[^A-Za-z0-9]")
         .withMessage("Password must have at least one special character."),
-    ];
+    ]
   };
   
+
 module.exports = validate

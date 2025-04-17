@@ -119,16 +119,6 @@ accCont.accountLogin = async function (req, res) {
 
       return res.redirect("/account")
 
-      // // Fetch the account type based on the provided email
-      // const accountTypeResult = await accountModel.getAccountTypeByEmail(account_email)
-
-      // // If the account type is "Admin" or "Employee", redirect to the inventory page
-      // if (accountTypeResult && (accountTypeResult.account_type === "Admin" || accountTypeResult.account_type === "Employee")) {
-      //   return res.redirect("/inv")  
-      // } else {
-      //   // If the account type is not Admin or Employee, redirect to the home page
-      //   return res.redirect("/")  
-      // }
     } else {
       // If password doesn't match, show an error and render the login page again
       req.flash("notice", "Please check your credentials and try again.")
@@ -178,7 +168,7 @@ accCont.buildUpdateAccount = async (req, res) => {
       console.log(accountData)
       const nav = await utilities.getNav();
   
-      res.render("account/update-account", 
+      res.render("account/updateAccount", 
         { 
           title: "Update Account", 
           nav, 
@@ -191,10 +181,20 @@ accCont.buildUpdateAccount = async (req, res) => {
       res.redirect("/account");
     }
   };
+
+
 accCont.updateAccountInfo = async function (req, res) {
     const { account_id, account_firstname, account_lastname, account_email } = req.body;
   
     try {
+      const emailExists = await accountModel.checkExistingEmail(account_email);
+    
+      if (emailExists > 0) {
+        req.flash("notice", "This email is already in use. Please choose another one.");
+        return res.redirect(`/account/update/${account_id}`);
+      }
+
+
       const updateResult = await accountModel.updateAccountInfo(
         account_id,
         account_firstname,
@@ -217,24 +217,30 @@ accCont.updateAccountInfo = async function (req, res) {
   };
 
 accCont.updateAccountPassword = async function (req, res) {
-  const { account_id, new_password } = req.body;
+    const { account_id, new_password } = req.body;
 
-  try {
-    const hashedPassword = await bcrypt.hash(new_password, 10);
-    const updatePassword = await accountModel.updatePassword(new_password, account_id);
-
-    if (updatePassword) {
-      req.flash("notice", "Password updated successfully.");
-      res.redirect("/account");
-    } else {
-      req.flash("notice", "Update failed. Please try again.");
-      res.redirect("/account/update");
+    console.log("Account ID:", account_id);
+    console.log("New Password:", new_password); 
+  
+    try {
+      // Hash the new password before storing it
+      const hashedPassword = await bcrypt.hash(new_password, 10);
+      
+      // Update the password in the database
+      const updatePassword = await accountModel.updatePassword(hashedPassword, account_id);
+  
+      if (updatePassword) {
+        req.flash("notice", "Password updated successfully.");
+        res.redirect("/account");  // Redirect to the account overview page
+      } else {
+        req.flash("notice", "Update failed. Please try again.");
+        res.redirect(`/account/update/${account_id}`);  // Redirect back to the update page with account_id
+      }
+    } catch (error) {
+      console.error("Error changing password:", error);
+      req.flash("notice", "An error occurred. Please try again.");
+      res.redirect(`/account/update/${account_id}`);  // Redirect to the update page with account_id
     }
-  } catch (error) {
-    console.error("Error changing password:", error);
-    req.flash("notice", "An error occurred. Please try again.");
-    res.redirect("/account/update");
-  }
-  }
+  };
 
 module.exports = accCont
